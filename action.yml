@@ -32,3 +32,9 @@ runs:
         terraform init -backend-config key=${TF_VAR_git}/${TF_VAR_branch} -backend-config bucket=${TF_STATE_BUCKET}
         terraform validate
         terraform fmt -recursive -check
+
+        # resources in config modules have unintended consequences
+        if [[ $(cat *.tf | grep 'resource "') ]]; then
+          echo "Resources are not allowed in config modules"
+          exit 1
+        fi
