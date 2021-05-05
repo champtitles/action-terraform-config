@@ -30,8 +30,5 @@ runs:
 
         # execute terraform commands
         terraform init -backend-config key=${TF_VAR_git}/${TF_VAR_branch} -backend-config bucket=${TF_STATE_BUCKET}
-        terraform apply -auto-approve
-        terraform plan -detailed-exitcode
-        terraform destroy -auto-approve
-        terraform plan -detailed-exitcode -destroy
-        cd .. && terraform fmt -recursive -check
+        terraform validate
+        terraform fmt -recursive -check
